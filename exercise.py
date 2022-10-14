@@ -33,7 +33,7 @@ def generate_vocab():
     print("the 5 most common words: \n", fDist_5000[:5])
     print("the 5 least common words: \n", fDist_5000[-5:])
 
-    with open("table1_sim.plk", "rb") as f:
+    with open("data/table1_sim.plk", "rb") as f:
         table1_sim = pickle.load(f)
 
     table1 = []
@@ -53,6 +53,8 @@ if __name__ == "__main__":
     # Step 2: extract the 5000 most common words
     vocab = generate_vocab()
     vocab_index = {vocab[i]: i for i in range(len(vocab))}
+    with open("data/vocab.plk", "wb") as f:
+        pickle.dump(vocab_index, f)
 
     # Step 3: word-context matrix
     corpus = brown.words()
@@ -88,8 +90,11 @@ if __name__ == "__main__":
     svd_300 = PCA(n_components=300)
     m2_300 = svd_300.fit_transform(m1_plus)
 
+    with open("data/lsa_m2_300.plk", "wb") as f:
+        pickle.dump(m2_300, f)
+
     # Step 6: find the intersection between W and table1 - P and S
-    with open("table1_sim.plk", "rb") as f:
+    with open("data/table1_sim.plk", "rb") as f:
         table1_sim = pickle.load(f)
 
     i = 0
@@ -102,9 +107,9 @@ if __name__ == "__main__":
             s.append(table1_sim[key])
             i += 1
     
-    with open("p.plk", "wb") as f:
+    with open("data/p.plk", "wb") as f:
         pickle.dump(p, f)
-    with open("s.plk", "wb") as f:
+    with open("data/s.plk", "wb") as f:
         pickle.dump(s, f)
 
     # Step 7: calculate similarity
