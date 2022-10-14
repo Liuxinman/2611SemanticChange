@@ -33,12 +33,17 @@ def generate_vocab():
     print("the 5 most common words: \n", fDist_5000[:5])
     print("the 5 least common words: \n", fDist_5000[-5:])
 
-    with open("table1.plk", "rb") as f:
-        table1 = set(pickle.load(f))
+    with open("table1_sim.plk", "rb") as f:
+        table1_sim = pickle.load(f)
 
+    table1 = []
+    for t in table1_sim.keys():
+        table1.append(t[0])
+        table1.append(t[1])
+    
     fDist_5000_w = set(list(zip(*fDist_5000))[0])
 
-    vocab = list(fDist_5000_w.union(table1))
+    vocab = list(fDist_5000_w.union(set(table1)))
     print(f"|W| = {len(vocab)}.\n")
 
     return vocab
@@ -96,6 +101,11 @@ if __name__ == "__main__":
             p[(v, w)] = i
             s.append(table1_sim[key])
             i += 1
+    
+    with open("p.plk", "wb") as f:
+        pickle.dump(p, f)
+    with open("s.plk", "wb") as f:
+        pickle.dump(s, f)
 
     # Step 7: calculate similarity
     s_m1 = np.zeros_like(s)
