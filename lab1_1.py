@@ -1,4 +1,3 @@
-from cgitb import small
 import pickle
 import numpy as np
 from scipy.stats import pearsonr
@@ -65,11 +64,13 @@ for line in word_test_f.readlines():
             full_semantic.writelines(line)
             if save_to_small:
                 semantic_test_f.writelines(line)
+                num_semantic += 1
         else:
             num_syntactic_full += 1
             full_syntactic.writelines(line)
             if save_to_small:
                 syntactic_test_f.writelines(line)
+                num_syntactic += 1
 
 print("------------ Full dataset ------------")
 print(f"the number of all samples: {num_semantic_full + num_syntactic_full}.")

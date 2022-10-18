@@ -40,9 +40,9 @@ result1 = sorted(list(zip(word, sim_score)), key=lambda x: x[1])
 
 print("--------- Method 1: compute cosine sim between first and last interval ---------")
 print("Top 20 least changing words:")
-print(result1[:20])
+print(", ".join([w[0] for w in result1[:20]]))
 print("Top 20 most changing words:")
-print(result1[-20:])
+print(", ".join([result1[i][0] for i in range(-1, -21, -1)]))
 print("\n")
 
 # Method 2:
@@ -57,9 +57,9 @@ result2 = sorted(list(zip(word, max_sim_score1)), key=lambda x: x[1])
 
 print("--------- Method 2: compute the maximum cosine distance between adjacent decades ---------")
 print("Top 20 least changing words:")
-print(result2[:20])
+print(", ".join([w[0] for w in result2[:20]]))
 print("Top 20 most changing words:")
-print(result2[-20:])
+print(", ".join([result2[i][0] for i in range(-1, -21, -1)]))
 print("\n")
 
 # Method 3:
@@ -75,9 +75,9 @@ print(
     "--------- Method 3:compute the maximum cosine distance between the first decades and other decades ---------"
 )
 print("Top 20 least changing words:")
-print(result3[:20])
+print(", ".join([w[0] for w in result3[:20]]))
 print("Top 20 most changing words:")
-print(result3[-20:])
+print(", ".join([result3[i][0] for i in range(-1, -21, -1)]))
 print("\n")
 
 # measure intercorrelations
